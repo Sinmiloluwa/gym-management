@@ -1,0 +1,16 @@
+{
+    "name": "sinmiloluwa/gym-management",
+    "description": "A gym management system using mvc",
+    "autoload": {
+        "psr-4": {
+            "app\\":"./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sinmiloluwa",
+            "email": "mofeoluwae@gmail.com"
+        }
+    ],
+    "require": {}
+}
