@@ -3,21 +3,34 @@
 namespace app\Core;
 
 /**
- * @author Sinmiloluwa <emmasimons141@gmail.com>
+* @author Sinmiloluwa <emmasimons141@gmail.com>
 */
 
 class Router
 {
     public Request $request;
+    public Response $response;
     protected array $routes = [];
 
-    public function __construct(Request $request)
+    /**
+     * Router constructor
+     * 
+     * @param \app\Core\Request $request
+     * @param \app\Core\Response $response
+     */
+
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
     public function get($path, $callback)
     {
         $this->routes['get'][$path] = $callback;
+    }
+    public function post($path, $callback)
+    {
+        $this->routes['post'][$path] = $callback;
     }
 
     public function resolve()
@@ -26,6 +39,7 @@ class Router
        $method = $this->request->getMethod();
        $callback = $this->routes[$method][$path] ?? false;
        if ($callback === false) {
+           $this->response->setStatusCode(404);
            return 'Not found';
        }
        if (is_string($callback)) {
